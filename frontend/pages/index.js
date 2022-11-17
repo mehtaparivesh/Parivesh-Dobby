@@ -1,34 +1,62 @@
-import Head from "next/head";
-import Image from "next/image";
-import ImageCard from "../components/ImageCard";
-import styles from "../styles/Home.module.css";
-import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
-export default function Home() {
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    const getImages = async () => {
-      const url = "http://localhost:8000/getImages";
-      await axios.get(url).then(
-        (response) => {
-          setImages(response.date.images);
-          if (response.data.success === true) {
-            setImages(response.date.images);
-          } else {
-            alert(response.data.message);
-          }
-        },
-        (err) => console.log(err)
-      );
-    };
+import {
+  lazy,
+  memo,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
+import axios from "axios";
+import Upload from "../components/ImageUpload";
+import Header from "../components/Header";
+import Loader from "../components/Loader";
+import { loginAction } from "../store/auth";
+import { useDispatch, connect } from "react-redux";
+import Notifi, { fire } from "../components/Notifi";
+axios.defaults.withCredentials = true;
+const Uploads = lazy(() => import("../components/Uploads"));
+function Home({ isLoggedIn }) {
+  const dispatch = useDispatch();
+  useLayoutEffect(() => {
+    axios.get("http://localhost:8000/check").then(
+      (res) => {
+        if (res.data.isLoggedIn === true) {
+          dispatch(loginAction({}));
+        }
+      },
+      (err) => console.log(err)
+    );
   }, []);
-
   return (
-    <main className="min-h-screen w-screen">
-      {images.map((image, index) => {
-        return <ImageCard source={image} key={uuidv4()} />;
-      })}
+    <main className="min-h-screen w-screen ">
+      <Header />
+      {isLoggedIn && (
+        <>
+          <Notifi />
+          <div className="top mt-20 w-screen flex flex-col justify-center items-center">
+            <h1 className="text-2xl w-full p-4 text-center">Upload</h1>
+            <Upload />
+          </div>
+          <div className="w-screen flex justify-center">
+            <Suspense fallback={<Loader />}>
+              <Uploads />
+            </Suspense>
+          </div>
+        </>
+      )}
+      {!isLoggedIn && (
+        <div className="flex flex-1 h-screen w-full items-center justify-center">
+          <h1 className="text-4xl text-blue-400">
+            Please Login to upload and see your gallery
+          </h1>
+        </div>
+      )}
     </main>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+export default memo(connect(mapStateToProps)(Home));

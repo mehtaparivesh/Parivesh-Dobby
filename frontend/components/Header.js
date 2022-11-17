@@ -1,0 +1,102 @@
+import { useRouter } from "next/router";
+import React from "react";
+import { connect, useDispatch } from "react-redux";
+import { logoutAction } from "../store/auth";
+import Notifi, { fire } from "./Notifi";
+function Header({ isLoggedIn }) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  return (
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded fixed w-full top-0">
+      <Notifi />
+      <div class="container flex flex-wrap items-center justify-between mx-auto">
+        <span href="/" class="flex items-center">
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            class="h-6 mr-3 sm:h-9"
+            alt="Flowbite Logo"
+          />
+          <span class="self-center text-xl font-semibold whitespace-nowrap ">
+            MyGallery
+          </span>
+        </span>
+        <button
+          data-collapse-toggle="navbar-default"
+          type="button"
+          class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
+          aria-controls="navbar-default"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+          <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+            <li>
+              <span
+                onClick={() => router.push("/")}
+                class="cursor-pointer block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 "
+                aria-current="page"
+              >
+                Home
+              </span>
+            </li>
+
+            {!isLoggedIn && (
+              <>
+                <li>
+                  <span
+                    onClick={() => router.push("/login")}
+                    class="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
+                  >
+                    Login
+                  </span>
+                </li>
+                <li>
+                  <span
+                    onClick={() => router.push("/signup")}
+                    class="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
+                  >
+                    Signup
+                  </span>
+                </li>
+              </>
+            )}
+            {isLoggedIn && (
+              <li>
+                <span
+                  onClick={() => {
+                    dispatch(logoutAction({}));
+                    fire("success", "Logout success");
+                  }}
+                  class="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
+                >
+                  logout
+                </span>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+export default React.memo(connect(mapStateToProps)(Header));
