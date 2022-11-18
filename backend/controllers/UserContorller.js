@@ -60,6 +60,7 @@ module.exports.createSession = async function (req, res) {
       httpOnly: false,
       maxAge: 9000000,
       secure: false,
+      sameSite: "none",
     });
     return res.json({
       success: true,
