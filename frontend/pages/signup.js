@@ -23,7 +23,7 @@ function Login({ isLoggedIn }) {
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    axios.get(CHECK_URL).then(
+    axios.get(CHECK_URL, { withCredentials: true }).then(
       (res) => {
         if (res.data.isLoggedIn === true) {
           dispatch(loginAction({}));

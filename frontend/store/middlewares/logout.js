@@ -7,7 +7,7 @@ const logoutMiddleWare =
   (action) => {
     if (action.type === logoutAction.type) {
       console.log(action.type);
-      axios.get(LOGOUT_URL).then(
+      axios.get(LOGOUT_URL, { withCredentials: true }).then(
         (res) => console.log(res),
         (err) => console.log(err)
       );

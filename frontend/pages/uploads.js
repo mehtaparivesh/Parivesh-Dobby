@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 function UploadsPage({ isLoggedIn }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get(CHECK_URL).then(
+    axios.get(CHECK_URL, { withCredentials: true }).then(
       (res) => {
         if (res.data.isLoggedIn === true) {
           dispatch(loginAction({}));
