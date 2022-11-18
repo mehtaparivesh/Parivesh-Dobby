@@ -1,0 +1,275 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "d:\\programming\\web\\Parivesh-Dobby\\backend",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2022-11-17 18:54:06",
+            "filesum": 17,
+            "codesum": 3532,
+            "commentsum": 62,
+            "blanksum": 530,
+            "statistics": {
+                ".json": {
+                    "code": 1838,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".js": {
+                    "code": 385,
+                    "comment": 57,
+                    "blank": 24
+                },
+                "": {
+                    "code": 5,
+                    "comment": 1,
+                    "blank": 0
+                },
+                ".lock": {
+                    "code": 1304,
+                    "comment": 4,
+                    "blank": 506
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": ".env"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "config\\database.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 2,
+                    "filename": "config\\multer.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 119,
+                    "comment": 19,
+                    "filename": "controllers\\imageController.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 109,
+                    "comment": 16,
+                    "filename": "controllers\\UserContorller.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 18,
+                    "comment": 8,
+                    "filename": "index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "middlewares\\cookiesDecrypt.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 19,
+                    "comment": 1,
+                    "filename": "models\\image.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "models\\tempUser.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "models\\user.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1809,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 5,
+                    "filename": "routes\\image.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 5,
+                    "filename": "routes\\index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 1,
+                    "filename": "routes\\user.js"
+                },
+                {
+                    "blank": 506,
+                    "code": 1304,
+                    "comment": 4,
+                    "filename": "yarn.lock"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-11-17 18:54:20",
+            "filesum": 17,
+            "codesum": 3532,
+            "commentsum": 62,
+            "blanksum": 530,
+            "statistics": {
+                ".json": {
+                    "code": 1838,
+                    "comment": 0,
+                    "blank": 0
+                },
+                "": {
+                    "code": 5,
+                    "comment": 1,
+                    "blank": 0
+                },
+                ".js": {
+                    "code": 385,
+                    "comment": 57,
+                    "blank": 24
+                },
+                ".lock": {
+                    "code": 1304,
+                    "comment": 4,
+                    "blank": 506
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": ".env"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "config\\database.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 2,
+                    "filename": "config\\multer.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 119,
+                    "comment": 19,
+                    "filename": "controllers\\imageController.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 109,
+                    "comment": 16,
+                    "filename": "controllers\\UserContorller.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 18,
+                    "comment": 8,
+                    "filename": "index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "middlewares\\cookiesDecrypt.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 19,
+                    "comment": 1,
+                    "filename": "models\\image.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "models\\tempUser.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "models\\user.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1809,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 5,
+                    "filename": "routes\\image.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 5,
+                    "filename": "routes\\index.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 1,
+                    "filename": "routes\\user.js"
+                },
+                {
+                    "blank": 506,
+                    "code": 1304,
+                    "comment": 4,
+                    "filename": "yarn.lock"
+                }
+            ]
+        }
+    ]
+}

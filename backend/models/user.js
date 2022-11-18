@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema(
       reqired: true,
     },
     verified: Boolean,
-    avatar: String,
     images: {
-      dataType: [],
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Image",
     },
   },
   {

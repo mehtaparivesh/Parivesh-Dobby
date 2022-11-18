@@ -1,80 +1,90 @@
 // importing modules
 const { v4: uuidv4 } = require("uuid");
-// importing models
-const Task = require("../models/user");
 
-// For creating a new task
+// importing models
+const User = require("../models/user");
+const Image = require("../models/image");
+const fs = require("fs");
+// For uploading a new image
 module.exports.upload = async (req, res) => {
   try {
-    // destructuring the title and description from req.body
-    const { title, description } = req.body;
-
-    if (!title || !description) {
+    if (!req.user) {
       return res.json({
         success: false,
-        message: "title and description is required",
+        message: "unauthorized access blocked",
       });
     }
-
-    // creating the new task with a unique id
-    let task = await Task.create({
-      title,
-      description,
-      id: uuidv4(),
+    if (!req.body.name) {
+      return res.json({ success: false, message: "Bad request" });
+    }
+    const newImage = await Image.create({
+      data: fs.readFileSync(req.file.path),
+      contentType: "image/jpeg",
+      user: req.user._id,
+      name: req.body.name,
     });
-    if (task) {
-      // if task created
-      return res.json({
-        success: true,
-        message: `Image created`,
-        taskId: task.id,
-      });
-    } else {
-      // if task not created
-      return res.json({
-        success: false,
-        massage: "failed to join race",
-      });
-    }
+
+    newImage.save();
+    let user = await User.findOne({ id: req.user._id });
+    if (!user) return res.json({ success: false, message: "no user found" });
+    user.images.push(newImage._id);
+    user.save();
+    fs.unlink(req.file.path, (e) => null);
+    res.json({
+      success: true,
+      message: "New image added to the db!",
+      image: newImage,
+    });
   } catch (err) {
-    // if there is some other error
     console.log(err);
-    return res.json({
-      success: false,
-      error: "internal server error",
-    });
+    return res.json({ success: false, message: "internal Server Error" });
   }
 };
 
-// To Get Task List
-module.exports.getTaskList = async (req, res) => {
+// To Get images List
+module.exports.getImagesList = async (req, res) => {
   try {
-    // getting list of tasks
-    let tasks = await Task.find();
+    // getting list of images
+    if(!req.user){
+      return res.json({success:false,message:"Unauthenticated"})
+    }
+    let images = await Image.find({ user: req.user._id }).sort([
+      ["createdAt", "desc"],
+    ]);
 
-    if (tasks) {
+    if (req.query.searchParam) {
+      console.log(req.query.searchParam);
+      images=images.filter(
+        (image) => image.name && image.name.includes(req.query.searchParam)
+      );
+    }
+    if (images) {
       // if list fetched successfully creating the response object
       const response = [
-        ...tasks.map((task) => ({
-          title: task.title,
-          description: task.description,
-          id: task.id,
+        ...images.map((image) => ({
+          id: image.id,
+          contentType: image.contentType,
+          id: image._id,
+          data: image.data,
+          name: image.name || "no name",
+          createdAt: image.createdAt,
         })),
       ];
-      // return the taskList
+      // return the imageList
       return res.json({
         success: true,
-        tasks: response,
+        images: [...response],
       });
     } else {
       // if list not present or not fetched
       return res.json({
         success: false,
-        message: "No tasks found",
+        message: "No images found",
       });
     }
   } catch (err) {
     // if there is some other error
+    console.log(err);
     return res.json({
       success: false,
       message: "Internal server error",
@@ -89,7 +99,7 @@ module.exports.deleteTask = async (req, res) => {
     let taskId = req.params.taskId;
     const deletedTask = await Task.findOneAndDelete({ id: taskId });
     if (deletedTask) {
-      // if task found with the id
+      // if image found with the id
       return res.json({
         success: true,
         message: "task deleted Successfully",

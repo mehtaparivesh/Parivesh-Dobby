@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const password = process.env.DATABASE_PASSWORD;
-mongoose.connect(`mongodb://localhost:27017/todo`, {
+mongoose.connect(process.env.DATABASE_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
