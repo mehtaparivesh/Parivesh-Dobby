@@ -1,34 +1,43 @@
 // importing modules
-const { v4: uuidv4 } = require("uuid");
+const fs = require("fs");
+
 
 // importing models
 const User = require("../models/user");
 const Image = require("../models/image");
-const fs = require("fs");
+
 // For uploading a new image
 module.exports.upload = async (req, res) => {
   try {
+    const { name } = req.body;
     if (!req.user) {
+      // unauthenticated
       return res.json({
         success: false,
         message: "unauthorized access blocked",
       });
     }
-    if (!req.body.name) {
+    if (!name) {
+      // edge case
       return res.json({ success: false, message: "Bad request" });
     }
+    // temporary storing
     const newImage = await Image.create({
       data: fs.readFileSync(req.file.path),
       contentType: "image/jpeg",
       user: req.user._id,
       name: req.body.name,
     });
-
+    // saving image
     newImage.save();
+
+    // pushing image in user
     let user = await User.findOne({ id: req.user._id });
     if (!user) return res.json({ success: false, message: "no user found" });
     user.images.push(newImage._id);
     user.save();
+
+    // deleting image from file system
     fs.unlink(req.file.path, (e) => null);
     res.json({
       success: true,
@@ -36,6 +45,7 @@ module.exports.upload = async (req, res) => {
       image: newImage,
     });
   } catch (err) {
+    // if err
     console.log(err);
     return res.json({ success: false, message: "internal Server Error" });
   }
@@ -45,16 +55,16 @@ module.exports.upload = async (req, res) => {
 module.exports.getImagesList = async (req, res) => {
   try {
     // getting list of images
-    if(!req.user){
-      return res.json({success:false,message:"Unauthenticated"})
+    if (!req.user) {
+      return res.json({ success: false, message: "Unauthenticated" });
     }
     let images = await Image.find({ user: req.user._id }).sort([
       ["createdAt", "desc"],
     ]);
 
     if (req.query.searchParam) {
-      console.log(req.query.searchParam,"Search Params");
-      images=images.filter(
+      console.log(req.query.searchParam, "Search Params");
+      images = images.filter(
         (image) => image.name && image.name.includes(req.query.searchParam)
       );
     }

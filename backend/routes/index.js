@@ -1,5 +1,6 @@
 // importing modules
 const express = require("express");
+const { check } = require("../controllers/checkController");
 // initializing router
 const router = express.Router();
 
@@ -7,18 +8,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   return res.send("Welcome to MY canvas");
 });
-router.get("/check", (req, res) => {
-  try {
-    console.log(req.user, "req.user in check");
-    if (req.user) {
-      return res.json({ success: true, isLoggedIn: true });
-    } else {
-      return res.json({ success: true, isLoggedIn: false });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+router.get("/check", check);
 // redirecting to the coresponding path
 router.use("/image", require("./image"));
 router.use("/user", require("./user"));

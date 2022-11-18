@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+// to set user in req object
 module.exports.addUserToRequestObject = async (req, res, next) => {
   if (!req.cookies.user) {
     next();
