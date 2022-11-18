@@ -6,12 +6,13 @@ import Loader from "../components/Loader";
 import { loginAction } from "../store/auth";
 import { useDispatch, connect } from "react-redux";
 import Notifi, { fire } from "../components/Notifi";
+import { CHECK_URL } from "../config";
 axios.defaults.withCredentials = true;
 const Uploads = lazy(() => import("../components/Uploads"));
 function Home({ isLoggedIn }) {
   const dispatch = useDispatch();
   useLayoutEffect(() => {
-    axios.get("http://localhost:8000/check").then(
+    axios.get(CHECK_URL).then(
       (res) => {
         if (res.data.isLoggedIn === true) {
           dispatch(loginAction({}));
