@@ -58,7 +58,7 @@ module.exports.createSession = async function (req, res) {
     // console.log("token generated");
     return res
       .cookie("user", Token, {
-        maxAge: 9000000,
+        // maxAge: 9000000,
         sameSite: "none",
         httpOnly: true,
         secure: true,
@@ -79,6 +79,7 @@ module.exports.createSession = async function (req, res) {
 
 module.exports.logout = async (req, res) => {
   try {
+    console.log(req.session);
     if (req.cookies.user) req.cookies.user = null;
     if (req.user) req.user = null;
     res.clearCookie("user", { path: "/" });
