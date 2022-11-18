@@ -16,7 +16,7 @@ function Uploads() {
     const url =
       GET_IMAGE_LIST_URL +
       (searchValue && searchValue != "" ? "?searchParam=" + searchValue : "");
-    await axios.get(url).then(
+    axios.get(url, { withCredentials: true }).then(
       (response) => {
         console.log(response.data);
         if (response.data.success === true) {

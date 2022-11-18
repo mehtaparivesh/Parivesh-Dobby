@@ -12,7 +12,7 @@ const Uploads = lazy(() => import("../components/Uploads"));
 function Home({ isLoggedIn }) {
   const dispatch = useDispatch();
   useLayoutEffect(() => {
-    axios.get(CHECK_URL).then(
+    axios.get(CHECK_URL, { withCredentials: true }).then(
       (res) => {
         if (res.data.isLoggedIn === true) {
           dispatch(loginAction({}));
