@@ -79,10 +79,11 @@ module.exports.createSession = async function (req, res) {
 module.exports.logout = async (req, res) => {
   try {
     res.clearCookie("user");
-    return res.json({ success: true, message: "logout success" });
     if (req.cookies.user) req.cookies.user = null;
     if (req.user) req.user = null;
     if (res.cookies.user) res.cookies.user = null;
+    if (res.cookies.user) res.cookies.user = null;
+    return res.json({ success: true, message: "logout success" });
   } catch (err) {
     console.log(err);
     return res.json({ success: false, message: "internal server error" });
