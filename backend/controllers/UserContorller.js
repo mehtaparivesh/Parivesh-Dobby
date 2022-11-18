@@ -91,11 +91,10 @@ module.exports.createSession = async function (req, res) {
 module.exports.logout = async (req, res) => {
   try {
     console.log(req.user, " req.user in logout");
-
     if (req.user) req.user = null;
     // removing cookie from browser
     await res
-      .clearCookie("user")
+      .cookie("user", null, { httpOnly: true })
       .json({ success: true, message: "logout success" });
   } catch (err) {
     // if error
