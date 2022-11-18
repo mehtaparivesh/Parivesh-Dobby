@@ -51,7 +51,6 @@ module.exports.createSession = async function (req, res) {
         message: "Invalid Credentials",
       });
     }
-
     const Token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
@@ -59,6 +58,8 @@ module.exports.createSession = async function (req, res) {
     res.cookie("user", Token, {
       maxAge: 9000000,
       sameSite: "none",
+      httpOnly: true,
+      secure: true,
     });
     return res.json({
       success: true,
