@@ -1,12 +1,15 @@
+// importing modules
 import React, { memo, useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import Compressor from "compressorjs";
 import Notifi, { fire } from "./Notifi";
-import { IMAGE_UPLOAD_URL } from "../config";
 
+// importing utils
+import { IMAGE_UPLOAD_URL } from "../config";
+// to send http cookie with request
+axios.defaults.withCredentials = true;
 function Upload() {
-  axios.defaults.withCredentials = true;
   const [file, setFile] = useState();
   const [name, setName] = useState("");
   const [uploading, setUploading] = useState(false);

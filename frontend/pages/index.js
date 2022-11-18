@@ -1,14 +1,22 @@
+// importing modules
 import { lazy, memo, Suspense, useLayoutEffect } from "react";
 import axios from "axios";
-import Upload from "../components/ImageUpload";
-import Header from "../components/Header";
-import Loader from "../components/Loader";
 import { loginAction } from "../store/auth";
 import { useDispatch, connect } from "react-redux";
-import Notifi, { fire } from "../components/Notifi";
+// importing utils
 import { CHECK_URL } from "../config";
+// importing  components
+import Upload from "../components/ImageUpload";
+import Loader from "../components/Loader";
+import Notifi, { fire } from "../components/Notifi";
+import Header from "../components/Header";
+
+// to send http cookie with request
 axios.defaults.withCredentials = true;
+
+// lazy component
 const Uploads = lazy(() => import("../components/Uploads"));
+
 function Home({ isLoggedIn }) {
   const dispatch = useDispatch();
   useLayoutEffect(() => {
