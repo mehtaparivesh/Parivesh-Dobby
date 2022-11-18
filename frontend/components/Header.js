@@ -8,7 +8,7 @@ import Notifi, { fire } from "./Notifi";
 axios.defaults.withCredentials = true;
 function Header({ isLoggedIn }) {
   const handleLogout = async () => {
-    await axios.post(LOGOUT_URL, {}).then(
+    await axios.post(LOGOUT_URL, {}, { withCredentials: true }).then(
       (res) => {
         console.log(res);
         if (res.data.success === true) {
