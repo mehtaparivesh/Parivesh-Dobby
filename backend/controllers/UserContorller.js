@@ -55,16 +55,17 @@ module.exports.createSession = async function (req, res) {
       expiresIn: "10d",
     });
     console.log("token generated");
-    res.cookie("user", Token, {
-      maxAge: 9000000,
-      sameSite: "none",
-      httpOnly: true,
-      secure: true,
-    });
-    return res.json({
-      success: true,
-      message: "Login successful",
-    });
+    return res
+      .cookie("user", Token, {
+        maxAge: 9000000,
+        sameSite: "none",
+        httpOnly: true,
+        secure: true,
+      })
+      .json({
+        success: true,
+        message: "Login successful",
+      });
   } catch (err) {
     console.log(err);
     return res.json({
