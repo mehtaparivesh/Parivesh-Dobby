@@ -57,9 +57,7 @@ module.exports.createSession = async function (req, res) {
     });
     console.log("token generated");
     res.cookie("user", Token, {
-      httpOnly: false,
       maxAge: 9000000,
-      secure: false,
       sameSite: "none",
     });
     return res.json({
