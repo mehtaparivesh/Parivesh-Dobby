@@ -8,5 +8,5 @@ const fs = require("fs");
 router.post("/create", usersController.create);
 router.post("/create-session", usersController.createSession);
 // router.post('/getId',usersController.getId)
-router.get("/logout", usersController.logout);
+router.post("/logout", usersController.logout);
 module.exports = router;
