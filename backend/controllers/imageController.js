@@ -1,7 +1,6 @@
 // importing modules
 const fs = require("fs");
 
-
 // importing models
 const User = require("../models/user");
 const Image = require("../models/image");
@@ -23,7 +22,7 @@ module.exports.upload = async (req, res) => {
     }
     // temporary storing
     const newImage = await Image.create({
-      data: fs.readFileSync(req.file.path),
+      data: await fs.readFileSync(req.file.path),
       contentType: "image/jpeg",
       user: req.user._id,
       name: req.body.name,
@@ -38,7 +37,7 @@ module.exports.upload = async (req, res) => {
     user.save();
 
     // deleting image from file system
-    fs.unlink(req.file.path, (e) => null);
+    await fs.unlink(req.file.path, (e) => null);
     res.json({
       success: true,
       message: "New image added to the db!",

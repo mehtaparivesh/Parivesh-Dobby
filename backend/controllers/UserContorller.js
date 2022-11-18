@@ -19,7 +19,7 @@ module.exports.create = async (req, res) => {
         message: "Email already registered",
       });
     } else {
-      let hashedPassword = hashPassword(req.body.password);
+      let xedPassword = hashPassword(req.body.password);
       // creating new user
       let newUser = await User.create({
         email: req.body.email,
