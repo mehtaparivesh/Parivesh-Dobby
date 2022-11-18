@@ -5,7 +5,6 @@ const crypto = require("crypto");
 module.exports.create = async (req, res) => {
   try {
     let user1 = await User.findOne({ email: req.body.email });
-
     if (user1) {
       return res.json({
         success: false,
@@ -40,12 +39,14 @@ module.exports.create = async (req, res) => {
 module.exports.createSession = async function (req, res) {
   try {
     let user = await User.findOne({ email: req.body.email });
-    console.log(user);
+    console.log(user, "USER");
     let hashedPassword = crypto
       .createHash("sha256")
       .update(req.body.password)
       .digest("hex");
     if (!user || user.password != hashedPassword) {
+      if (!user) console.log("User not found");
+      if (user.password != hashedPassword) console.log("Password don't match");
       return res.json({
         success: false,
         message: "Invalid Credentials",
@@ -54,7 +55,7 @@ module.exports.createSession = async function (req, res) {
     const Token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
-    console.log("token generated");
+    // console.log("token generated");
     return res
       .cookie("user", Token, {
         maxAge: 9000000,

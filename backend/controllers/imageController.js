@@ -53,7 +53,7 @@ module.exports.getImagesList = async (req, res) => {
     ]);
 
     if (req.query.searchParam) {
-      console.log(req.query.searchParam);
+      console.log(req.query.searchParam,"Search Params");
       images=images.filter(
         (image) => image.name && image.name.includes(req.query.searchParam)
       );
