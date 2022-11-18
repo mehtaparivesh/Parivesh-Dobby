@@ -62,6 +62,7 @@ module.exports.createSession = async function (req, res) {
         sameSite: "none",
         httpOnly: true,
         secure: true,
+        path: "/",
       })
       .json({
         success: true,
@@ -78,11 +79,9 @@ module.exports.createSession = async function (req, res) {
 
 module.exports.logout = async (req, res) => {
   try {
-    res.clearCookie("user");
     if (req.cookies.user) req.cookies.user = null;
     if (req.user) req.user = null;
-    if (res.cookies.user) res.cookies.user = null;
-    if (res.cookies.user) res.cookies.user = null;
+    res.clearCookie("user", { path: "/" });
     return res.json({ success: true, message: "logout success" });
   } catch (err) {
     console.log(err);
