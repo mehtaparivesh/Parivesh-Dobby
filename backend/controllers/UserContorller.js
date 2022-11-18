@@ -19,7 +19,7 @@ module.exports.create = async (req, res) => {
         message: "Email already registered",
       });
     } else {
-      let xedPassword = hashPassword(req.body.password);
+      let hashedPassword = hashPassword(req.body.password);
       // creating new user
       let newUser = await User.create({
         email: req.body.email,
@@ -63,7 +63,7 @@ module.exports.createSession = async function (req, res) {
       }
     }
     // creating auth token
-    const Token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    const Token =  jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
     // setting cookie
