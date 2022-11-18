@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Compressor from "compressorjs";
 import Notifi, { fire } from "./Notifi";
+import { IMAGE_UPLOAD_URL } from "../config";
 
 function Upload() {
   axios.defaults.withCredentials = true;
@@ -30,7 +31,7 @@ function Upload() {
     formData.append("file", file);
     formData.append("name", name);
     axios
-      .post("http://localhost:8000/image/upload", formData, {
+      .post(IMAGE_UPLOAD_URL, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -118,7 +119,7 @@ function Upload() {
         </motion.div>
       )}
       <div className="px-6 h-full text-gray-800">
-        <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap  p-6">
+        <div className="flex xl:justify-center  justify-center items-center flex-wrap  p-6">
           <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
             <form encType="multipart/form-data" onSubmit={handleSubmit}>
               <div className="mb-6">

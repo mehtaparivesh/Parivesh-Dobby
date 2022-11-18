@@ -1,11 +1,4 @@
-import {
-  lazy,
-  memo,
-  Suspense,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { lazy, memo, Suspense, useLayoutEffect } from "react";
 import axios from "axios";
 import Upload from "../components/ImageUpload";
 import Header from "../components/Header";
@@ -45,10 +38,8 @@ function Home({ isLoggedIn }) {
         </>
       )}
       {!isLoggedIn && (
-        <div className="flex flex-1 h-screen w-full items-center justify-center">
-          <h1 className="text-4xl text-blue-400">
-            Please Login to upload and see your gallery
-          </h1>
+        <div className="flex  h-screen w-screen items-center justify-center p-1 2xl:text-3xl xl:text-2xl text-lg text-blue-400 ">
+          Please Login to upload and see your gallery
         </div>
       )}
     </main>

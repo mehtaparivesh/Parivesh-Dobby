@@ -5,6 +5,7 @@ import ImageCard from "./ImageCard";
 import { v4 as uuidv4 } from "uuid";
 import SearchBar from "./SearchBar";
 import Loader from "./Loader";
+import { GET_IMAGE_LIST_URL } from "../config";
 function Uploads() {
   console.log("Uploads");
   const [images, setImages] = useState([]);
@@ -13,7 +14,7 @@ function Uploads() {
   const getImages = async (s = "") => {
     setLoading(true);
     const url =
-      "http://localhost:8000/image/list" +
+      GET_IMAGE_LIST_URL +
       (searchValue && searchValue != "" ? "?searchParam=" + searchValue : "");
     await axios.get(url).then(
       (response) => {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LOGOUT_URL } from "../../config";
 import { logoutAction } from "../auth";
 const logoutMiddleWare =
   ({ dispatch, getState }) =>
@@ -6,7 +7,7 @@ const logoutMiddleWare =
   (action) => {
     if (action.type === logoutAction.type) {
       console.log(action.type);
-      axios.get("http://localhost:8000/user/logout").then(
+      axios.get(LOGOUT_URL).then(
         (res) => console.log(res),
         (err) => console.log(err)
       );

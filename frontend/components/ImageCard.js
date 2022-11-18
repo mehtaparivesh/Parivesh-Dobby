@@ -14,7 +14,7 @@ function ImageCard({ source, name = "temp", createdAt = null }) {
         className="w-full rounded-lg shadow-xl hover:scale-90 transition duration-500 cursor-pointer max-w-[300px]"
         src={src}
       />
-      <motion.span className="p-1 flex justify-between text-gray-500">
+      <motion.span className="p-2 flex justify-between text-gray-500">
         <motion.span>{name.substr(0, 20)}</motion.span>
         {createdAt && <motion.span>{createdAt}</motion.span>}
       </motion.span>

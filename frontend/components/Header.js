@@ -1,20 +1,19 @@
-import { useRouter } from "next/router";
+import router from "next/router";
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { logoutAction } from "../store/auth";
 import Notifi, { fire } from "./Notifi";
 function Header({ isLoggedIn }) {
-  const router = useRouter();
   const dispatch = useDispatch();
   return (
-    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded fixed w-full top-0">
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded fixed w-full top-0 z-[100]">
       <Notifi />
       <div class="container flex flex-wrap items-center justify-between mx-auto">
         <span href="/" class="flex items-center">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             class="h-6 mr-3 sm:h-9"
-            alt="Flowbite Logo"
+            alt="My Gallery Logo"
           />
           <span class="self-center text-xl font-semibold whitespace-nowrap ">
             MyGallery
@@ -75,17 +74,29 @@ function Header({ isLoggedIn }) {
               </>
             )}
             {isLoggedIn && (
-              <li>
-                <span
-                  onClick={() => {
-                    dispatch(logoutAction({}));
-                    fire("success", "Logout success");
-                  }}
-                  class="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
-                >
-                  logout
-                </span>
-              </li>
+              <>
+                <li>
+                  <span
+                    onClick={() => {
+                      dispatch(logoutAction({}));
+                      fire("success", "Logout success");
+                    }}
+                    class="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
+                  >
+                    logout
+                  </span>
+                </li>
+                <li>
+                  <span
+                    onClick={() => {
+                      router.push("/uploads");
+                    }}
+                    className="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
+                  >
+                    uploads
+                  </span>
+                </li>
+              </>
             )}
           </ul>
         </div>
