@@ -5,9 +5,7 @@ module.exports.addUserToRequestObject = async (req, res, next) => {
     return;
   }
   let user = req.cookies.user;
-  user = await jwt.verify(user, process.env.JWT_SECRET);
-  if (user) {
-    req.user = user;
-  }
+  user = jwt.verify(user, process.env.JWT_SECRET);
+  req.user = user;
   next();
 };

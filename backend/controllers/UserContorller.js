@@ -39,18 +39,19 @@ module.exports.create = async (req, res) => {
 module.exports.createSession = async function (req, res) {
   try {
     let user = await User.findOne({ email: req.body.email });
-    console.log(user, "USER");
     let hashedPassword = crypto
       .createHash("sha256")
       .update(req.body.password)
       .digest("hex");
     if (!user || user.password != hashedPassword) {
       if (!user) console.log("User not found");
-      if (user.password != hashedPassword) console.log("Password don't match");
-      return res.json({
-        success: false,
-        message: "Invalid Credentials",
-      });
+      if (user.password != hashedPassword) {
+        console.log("Password don't match");
+        return res.json({
+          success: false,
+          message: "Invalid Credentials",
+        });
+      }
     }
     const Token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
@@ -62,7 +63,6 @@ module.exports.createSession = async function (req, res) {
         sameSite: "none",
         httpOnly: true,
         secure: true,
-        path: "/",
       })
       .json({
         success: true,
@@ -79,11 +79,9 @@ module.exports.createSession = async function (req, res) {
 
 module.exports.logout = async (req, res) => {
   try {
-    console.log(req.session);
-    if (req.cookies.user) req.cookies.user = null;
+    console.log(req.user, " req.user in logout");
     if (req.user) req.user = null;
-    res.clearCookie("user", { path: "/" });
-    return res.json({ success: true, message: "logout success" });
+    res.clearCookie("user").json({ success: true, message: "logout success" });
   } catch (err) {
     console.log(err);
     return res.json({ success: false, message: "internal server error" });

@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 });
 router.get("/check", (req, res) => {
   try {
-    console.log(req.user);
+    console.log(req.user, "req.user in check");
     if (req.user) {
       return res.json({ success: true, isLoggedIn: true });
     } else {
