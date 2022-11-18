@@ -63,7 +63,7 @@ module.exports.createSession = async function (req, res) {
       }
     }
     // creating auth token
-    const Token =  jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    const Token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
     // setting cookie
@@ -94,7 +94,9 @@ module.exports.logout = async (req, res) => {
 
     if (req.user) req.user = null;
     // removing cookie from browser
-    res.clearCookie("user").json({ success: true, message: "logout success" });
+    await res
+      .clearCookie("user")
+      .json({ success: true, message: "logout success" });
   } catch (err) {
     // if error
     console.log(err);
