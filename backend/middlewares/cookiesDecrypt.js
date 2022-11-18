@@ -7,6 +7,10 @@ module.exports.addUserToRequestObject = async (req, res, next) => {
   }
   let user = req.cookies.user;
   user = jwt.verify(user, process.env.JWT_SECRET);
-  req.user = user;
+  if (user) {
+    req.user = user;
+  } else {
+    return res.eraseCookie("user").json({ success: false, message: "bad request" });
+  }
   next();
 };
