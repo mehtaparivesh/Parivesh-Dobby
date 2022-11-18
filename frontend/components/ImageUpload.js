@@ -44,6 +44,7 @@ function Upload() {
         (res) => {
           if (res.data.success === true) {
             setUploading(false);
+            fire("success", "image Uploaded successfully");
             setFileUrl(null);
           } else {
             setUploading(false);
@@ -68,11 +69,6 @@ function Upload() {
     });
   }, [file]);
 
-  useEffect(() => {
-    if (progress === 100) {
-      fire("success", "image Uploaded successfully");
-    }
-  }, [progress]);
   const Progress = ({ progress }) => (
     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
       <div
