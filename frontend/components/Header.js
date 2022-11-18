@@ -1,9 +1,22 @@
 import router from "next/router";
 import React from "react";
 import { connect, useDispatch } from "react-redux";
+import { LOGOUT_URL } from "../config";
 import { logoutAction } from "../store/auth";
 import Notifi, { fire } from "./Notifi";
 function Header({ isLoggedIn }) {
+  const handleLogout = async () => {
+    await axios.post(LOGOUT_URL, {}, { withCredentials: true }).then(
+      (res) => {
+        console.log(res);
+        if (res.data.success === true) dispatch(logoutAction({}));
+        else fire("error", "failed to logout");
+      },
+      (err) => console.log(err)
+    );
+
+    fire("success", "Logout success");
+  };
   const dispatch = useDispatch();
   return (
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded fixed w-full top-0 z-[100]">
@@ -77,10 +90,7 @@ function Header({ isLoggedIn }) {
               <>
                 <li>
                   <span
-                    onClick={() => {
-                      dispatch(logoutAction({}));
-                      fire("success", "Logout success");
-                    }}
+                    onClick={handleLogout}
                     class="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 "
                   >
                     logout
