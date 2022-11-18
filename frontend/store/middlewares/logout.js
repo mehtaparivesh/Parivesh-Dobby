@@ -6,16 +6,7 @@ const logoutMiddleWare =
   ({ dispatch, getState }) =>
   (next) =>
   (action) => {
-    if (action.type === logoutAction.type) {
-      console.log(action.type);
-      axios.post(LOGOUT_URL, {}, { withCredentials: true }).then(
-        (res) => console.log(res),
-        (err) => console.log(err)
-      );
-      next(action);
-    } else {
-      next(action);
-    }
+    next(action);
   };
 
 export default logoutMiddleWare;

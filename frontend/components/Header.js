@@ -1,21 +1,23 @@
+import axios from "axios";
 import router from "next/router";
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { LOGOUT_URL } from "../config";
 import { logoutAction } from "../store/auth";
 import Notifi, { fire } from "./Notifi";
+axios.defaults.withCredentials = true;
 function Header({ isLoggedIn }) {
   const handleLogout = async () => {
-    await axios.post(LOGOUT_URL, {}, { withCredentials: true }).then(
+    await axios.post(LOGOUT_URL, {}).then(
       (res) => {
         console.log(res);
-        if (res.data.success === true) dispatch(logoutAction({}));
-        else fire("error", "failed to logout");
+        if (res.data.success === true) {
+          dispatch(logoutAction({}));
+          fire("success", "Logout success");
+        } else fire("error", "failed to logout");
       },
       (err) => console.log(err)
     );
-
-    fire("success", "Logout success");
   };
   const dispatch = useDispatch();
   return (
